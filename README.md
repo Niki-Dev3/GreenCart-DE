@@ -1,19 +1,39 @@
 # GreenCart E-Commerce ETL Pipeline
-## Project Overview
 
+## Project Overview
 GreenCart is a growing e-commerce startup. The sales team needs daily insights on revenue, customer behavior, and product performance. Currently, they only have raw CSV exports from their operational system.
 
-This project implements a complete ETL pipeline that:
+This project implements a **complete ETL pipeline** that:
 
-Ingests raw CSV data
+- Ingests raw CSV data
+- Cleanses and transforms it
+- Loads it into a structured **star schema** suitable for analytics
+- Supports CI/CD with automated testing and linting
 
-Cleanses and transforms it
+The pipeline is designed to work **locally** or in a **cloud-like CI/CD environment** using MariaDB.
 
-Loads it into a structured star schema suitable for analytics
+---
 
-Supports CI/CD with automated testing and linting
+## Features
 
-The pipeline is designed to work locally or in a cloud-like CI/CD environment using MariaDB.
+1. **Data Extract**
+   - Reads multiple raw CSV files from `data/raw/` or `data/sample/`.
+
+2. **Data Cleaning & Transformation**
+   - Automatic date conversion for timestamp-like columns.
+   - Business rules applied (e.g., revenue only from delivered orders, drops invalid prices).
+   - Derived metrics:
+     - `is_late_delivery`
+     - `bad_review_flag`
+     - `payment_mismatch`
+
+3. **Data Modeling**
+   - **Star schema design** with:
+     - Dimensions: `dim_customers`, `dim_products`, `dim_sellers`
+     - Facts: `fact_orders`, `fact_order_items`
+
 
 ## Star Schema
+
+
 <img width="616" height="388" alt="image" src="https://github.com/user-attachments/assets/df368139-faab-497d-966f-8969ceee650f" />
