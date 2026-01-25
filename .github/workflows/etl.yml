@@ -45,4 +45,5 @@ jobs:
           DB_USER: root
           DB_PASSWORD: rootpass
           DB_NAME: greencart_db
+          DATA_PATH: data/sample
         run: python src/pipeline.py
