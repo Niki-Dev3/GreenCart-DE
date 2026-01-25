@@ -47,3 +47,4 @@ jobs:
           DB_NAME: greencart_db
           DATA_PATH: data/sample
         run: python src/pipeline.py
+        
