@@ -1,3 +1,4 @@
+import os
 from create_tables import create_tables
 from transform_data import transform_data
 from load_data import load_to_csv, load_to_database
@@ -31,8 +32,9 @@ def run_pipeline(raw_path: str, output_path: str) -> None:
     print("ETL pipeline completed successfully!")
 
 
+
 if __name__ == "__main__":
     run_pipeline(
-        raw_path="../data/raw",
+        raw_path=os.getenv("DATA_PATH", "../data/raw"),
         output_path="../data/processed"
     )
