@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+myenv/
+
+# Environment variables
+.env
+.env.*
+
+# Data files
+data/raw/
+data/processed/
+*.csv
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
