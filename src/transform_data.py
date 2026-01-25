@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from extract_data import extract_data
 
@@ -12,28 +13,54 @@ def auto_convert_dates(df: pd.DataFrame, threshold: float = 0.7) -> pd.DataFrame
         if "date" in c.lower() or "timestamp" in c.lower()
     ]
 
-    converted_cols = []
-
     for col in date_cols:
         converted = pd.to_datetime(df[col], errors="coerce")
-
         if converted.notna().mean() >= threshold:
             df[col] = converted
-            converted_cols.append(col)
 
     return df
 
 
-def transform_data(raw_path: str) -> dict:
+def transform_data(raw_path: str = None) -> dict:
     """
     Clean, transform, and model raw Olist data into
     analytics-ready dimension and fact tables.
     """
     # -------------------------
-    # 1. Extract raw data
+    # 1. Determine data path
     # -------------------------
-    data = extract_data(raw_path)
+    if raw_path is None:
+        raw_path = os.getenv("DATA_PATH", "../data/raw")
 
+    # -------------------------
+    # 2. Extract raw data
+    # -------------------------
+    try:
+        data = extract_data(raw_path)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"No data found in path: {raw_path}")
+
+    # -------------------------
+    # 3. Check required datasets exist
+    # -------------------------
+    required_keys = [
+        "olist_orders_dataset",
+        "olist_order_items_dataset",
+        "olist_order_payments_dataset",
+        "olist_order_reviews_dataset",
+        "olist_customers_dataset",
+        "olist_products_dataset",
+        "olist_sellers_dataset"
+    ]
+
+    for key in required_keys:
+        if key not in data:
+            raise KeyError(
+                f"Dataset '{key}' not found in {raw_path}. "
+                "Please ensure the CSV file exists."
+            )
+
+    # Assign datasets safely
     orders = data["olist_orders_dataset"]
     order_items = data["olist_order_items_dataset"]
     order_payments = data["olist_order_payments_dataset"]
@@ -43,23 +70,21 @@ def transform_data(raw_path: str) -> dict:
     sellers = data["olist_sellers_dataset"]
 
     # -------------------------
-    # 2. Basic Data Cleaning
+    # 4. Basic Data Cleaning
     # -------------------------
     orders = auto_convert_dates(orders, threshold=0.5)
     order_items = auto_convert_dates(order_items, threshold=0.5)
     order_reviews = auto_convert_dates(order_reviews, threshold=0.5)
 
-    # Drop order items without price (cannot contribute to revenue)
     order_items = order_items.dropna(subset=["price"])
 
     # --------------------------------------------------
-    # 2.5 Business rules
+    # 5. Business rules
     # --------------------------------------------------
-    # Revenue is counted only for delivered orders
     orders_delivered = orders[orders["order_status"] == "delivered"].copy()
 
     # -------------------------
-    # 3. Dimension Tables
+    # 6. Dimension Tables
     # -------------------------
     dim_customers = customers[[
         "customer_id",
@@ -84,10 +109,8 @@ def transform_data(raw_path: str) -> dict:
     ]].drop_duplicates()
 
     # -------------------------
-    # 4. Fact Table (Star Schema)
+    # 7. Fact Table (Star Schema)
     # -------------------------
-
-    # Aggregate order items to order level
     order_items_agg = (
         order_items
         .groupby("order_id", as_index=False)
@@ -97,27 +120,23 @@ def transform_data(raw_path: str) -> dict:
             total_freight_value=("freight_value", "sum")
         )
     )
-
     order_items_agg["total_order_value"] = (
         order_items_agg["total_product_value"]
         + order_items_agg["total_freight_value"]
     )
 
-    # Aggregate payments per order
     payments = (
         order_payments
         .groupby("order_id", as_index=False)
         .agg(payment_value=("payment_value", "sum"))
     )
 
-    # Pick one review per order (highest score if multiple exist)
     reviews_agg = (
         order_reviews
-        .sort_values("review_score", ascending=False) 
+        .sort_values("review_score", ascending=False)
         .drop_duplicates(subset=["order_id"], keep="first")
     )
 
-    # Build fact_orders (1 row = 1 order)
     fact_orders = (
         orders_delivered
         .merge(order_items_agg, on="order_id", how="left")
@@ -129,17 +148,12 @@ def transform_data(raw_path: str) -> dict:
         )
     )
 
-
-    # --------------------------------------------------
-    # Derived metrics
-    # --------------------------------------------------
     fact_orders["is_late_delivery"] = (
         fact_orders["order_delivered_customer_date"]
         > fact_orders["order_estimated_delivery_date"]
     )
 
     fact_orders["bad_review_flag"] = fact_orders["review_score"] <= 2
-
     fact_orders["payment_mismatch"] = (
         fact_orders["payment_value"] < fact_orders["total_order_value"]
     )
@@ -161,21 +175,14 @@ def transform_data(raw_path: str) -> dict:
         "payment_mismatch"
     ]]
 
-    # --------------------------------------------------
-    # Fact table at order-item level
-    # --------------------------------------------------
     fact_order_items = (
         orders_delivered
         .merge(order_items, on="order_id", how="inner")
     )
-
     fact_order_items["total_item_value"] = (
-        fact_order_items["price"]
-        + fact_order_items["freight_value"]
+        fact_order_items["price"] + fact_order_items["freight_value"]
     )
-
     fact_order_items["quantity"] = 1
-
     fact_order_items = fact_order_items[[
         "order_id",
         "order_item_id",
@@ -188,9 +195,6 @@ def transform_data(raw_path: str) -> dict:
         "quantity"
     ]]
 
-    # --------------------------------------------------
-    # Return transformed datasets
-    # --------------------------------------------------
     return {
         "dim_customers": dim_customers,
         "dim_products": dim_products,
@@ -201,4 +205,6 @@ def transform_data(raw_path: str) -> dict:
 
 
 if __name__ == "__main__":
-    transformed = transform_data("../data/raw")
+    # Use environment variable if available (works in GitHub Actions)
+    data_path = os.getenv("DATA_PATH", "../data/raw")
+    transformed = transform_data(data_path)
