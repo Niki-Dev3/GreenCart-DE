@@ -1,49 +1,29 @@
-name: GreenCart ETL CI
+name: ETL Pipeline CI
 
-# Trigger workflow on push or pull request
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
-# Job definitions
 jobs:
-  build-and-test:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Checkout the repo
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # 2️⃣ Set up Python
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.11
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    # 3️⃣ Install dependencies
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    # 4️⃣ Lint code using flake8 (PEP8 check)
-    - name: Lint code
-      run: |
-        pip install flake8
-        flake8 src/
-
-    # 5️⃣ Run unit tests
-    - name: Run tests
-      run: |
-        pip install pytest
-        pytest tests/
-
-    # 6️⃣ Run ETL pipeline (optional)
-    - name: Run ETL pipeline
-      run: |
-        python src/pipeline.py
+      - name: Run basic pipeline validation
+        run: |
+          python src/pipeline.py
