@@ -48,3 +48,5 @@ jobs:
           DATA_PATH: data/sample
         run: python src/pipeline.py
         
+      - name: run unit test
+        run: pytest
