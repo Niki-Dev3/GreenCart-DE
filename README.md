@@ -158,12 +158,13 @@ The pipeline is containerized using Docker.
 ### Build Image
 ```bash
 docker build -t greencart_DE .
-
+```
 ---
 
 ## Run Container
-
+```
 docker run greencart_DE .
+```
 
 ---
 
@@ -193,9 +194,12 @@ export DB_NAME=greencart_db
 export DATA_PATH=../data/raw
 
 ### 3️⃣ Run Pipeline
+```
 python src/pipeline.py
 -or-
 python3 src/pipeline.py
+```
+---
 
 ## 🧠 Assumptions Made
 
@@ -204,6 +208,8 @@ python3 src/pipeline.py
 - Reviews are deduplicated using the highest score
 - Payment mismatches indicate potential issues
 
+---
+
 ## 🚀 Azure Deployment Strategy (Future Scope)
 
 - Azure Data Factory for orchestration
@@ -211,6 +217,8 @@ python3 src/pipeline.py
 - Azure SQL Database for analytics
 - Power BI for reporting
 - CI/CD via GitHub Actions
+
+---
 
 ## 🏁 Conclusion
 
