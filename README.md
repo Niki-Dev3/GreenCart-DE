@@ -163,7 +163,7 @@ docker build -t greencart_DE .
 
 ## Run Container
 
-docker run greencart_DE
+docker run greencart_DE .
 
 ---
 
