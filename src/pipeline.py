@@ -24,13 +24,12 @@ def run_pipeline(raw_path: str, output_path: str) -> None:
     # Step 3: Save transformed data as CSV files
     print("Writing transformed data to CSV")
     load_to_csv(transformed_data, output_path)
-    
+
     # Step 4: Load data into the database
     print("Loading data into database...")
     load_to_database(transformed_data)
 
     print("ETL pipeline completed successfully!")
-
 
 
 if __name__ == "__main__":
