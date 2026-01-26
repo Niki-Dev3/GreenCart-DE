@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from extract_data import extract_data
+from data_quality import validate_fact_orders
 
 
 def auto_convert_dates(df: pd.DataFrame, threshold: float = 0.7) -> pd.DataFrame:
@@ -194,6 +195,9 @@ def transform_data(raw_path: str = None) -> dict:
         "total_item_value",
         "quantity"
     ]]
+
+    #validate fact_orders data
+    validate_fact_orders(fact_orders)
 
     return {
         "dim_customers": dim_customers,
