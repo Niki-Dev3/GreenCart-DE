@@ -67,7 +67,7 @@ def load_table_to_db(
     placeholders = ", ".join(["%s"] * len(df.columns))
     sql = (
         f"INSERT IGNORE INTO {table_name}"
-         f"({columns}) VALUES ({placeholders})"
+        f"({columns}) VALUES ({placeholders})"
     )
 
     data = [
@@ -99,20 +99,20 @@ def load_to_database(
         ]:
             if table_name in transformed_data:
                 load_table_to_db(
-                    transformed_data[table_name], 
-                    table_name, 
+                    transformed_data[table_name],
+                    table_name,
                     connection
                 )
 
         # Load fact tables next
         for table_name in [
-            "fact_orders", 
+            "fact_orders",
             "fact_order_items"
         ]:
             if table_name in transformed_data:
                 load_table_to_db(
-                    transformed_data[table_name], 
-                    table_name, 
+                    transformed_data[table_name],
+                    table_name,
                     connection
                 )
 
