@@ -196,7 +196,7 @@ def transform_data(raw_path: str = None) -> dict:
         "quantity"
     ]]
 
-    #validate fact_orders data
+    # validate fact_orders data
     validate_fact_orders(fact_orders)
 
     return {
