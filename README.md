@@ -34,6 +34,7 @@ Power BI / Analytics
 
 ## 📂 Project Structure
 
+```
 greencart_DE/
 │
 ├── data/
@@ -62,7 +63,7 @@ greencart_DE/
 ├── Dockerfile
 ├── requirements.txt
 └── README.md
-
+```
 
 ---
 
@@ -159,9 +160,7 @@ The pipeline is containerized using Docker.
 ```bash
 docker build -t greencart_DE .
 ```
----
-
-## Run Container
+### Run Container
 ```
 docker run greencart_DE .
 ```
