@@ -12,8 +12,8 @@ def extract_data(raw_path: str) -> dict:
 
     for file in Path(raw_path).glob("*.csv"):
         data[file.stem] = pd.read_csv(
-            file, 
-            encoding="utf-8", 
+            file,
+            encoding="utf-8",
             on_bad_lines='skip'
         )
 
@@ -21,4 +21,4 @@ def extract_data(raw_path: str) -> dict:
 
 
 if __name__ == "__main__":
-    data = extract_data(raw_path = os.getenv("DATA_PATH", "../data/raw"))
+    data = extract_data(raw_path=os.getenv("DATA_PATH", "../data/raw"))

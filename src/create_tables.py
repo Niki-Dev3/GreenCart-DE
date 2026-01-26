@@ -64,7 +64,7 @@ def create_tables():
         );
     """)
 
-    cursor.execute(""" 
+    cursor.execute("""
             CREATE TABLE IF NOT EXISTS fact_order_items (
             order_id VARCHAR(50),
             order_item_id INT,

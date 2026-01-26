@@ -94,7 +94,7 @@ def load_to_database(
         # Load dimensions first
         for table_name in [
             "dim_customers",
-            "dim_products", 
+            "dim_products",
             "dim_sellers"
         ]:
             if table_name in transformed_data:
