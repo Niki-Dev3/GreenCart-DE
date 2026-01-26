@@ -60,7 +60,7 @@ def transform_data(raw_path: str = None) -> dict:
                 "Please ensure the CSV file exists."
             )
 
-    # Assign datasets safely
+    # Assign datasets
     orders = data["olist_orders_dataset"]
     order_items = data["olist_order_items_dataset"]
     order_payments = data["olist_order_payments_dataset"]
@@ -76,11 +76,11 @@ def transform_data(raw_path: str = None) -> dict:
     order_items = auto_convert_dates(order_items, threshold=0.5)
     order_reviews = auto_convert_dates(order_reviews, threshold=0.5)
 
-    order_items = order_items.dropna(subset=["price"])
-
     # --------------------------------------------------
     # 5. Business rules
     # --------------------------------------------------
+
+    order_items = order_items.dropna(subset=["price"])
     orders_delivered = orders[orders["order_status"] == "delivered"].copy()
 
     # -------------------------
