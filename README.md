@@ -44,12 +44,13 @@ greencart_DE/
 |
 |
 ├── src/
+│ ├── create_tables.py
 │ ├── extract_data.py
 | ├── data_quality.py
 │ ├── transform_data.py
 │ ├── load_data.py
-│ ├── create_tables.py
 │ ├── pipeline.py
+│ ├── data_visualize.py
 │
 ├── terraform/
 │ └── main.tf
@@ -113,8 +114,7 @@ Source: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 ### Relationships
 
-<img width="616" height="388" alt="image" src="https://github.com/user-attachments/assets/df368139-faab-497d-966f-8969ceee650f" />
-
+<img width="678" height="425" alt="image" src="https://github.com/user-attachments/assets/54a02984-d9b1-4431-b137-67f4441d7d8e" />
 
 This schema is optimized for analytical queries and BI reporting.
 
@@ -149,6 +149,16 @@ On every push or pull request:
 - Connects to a MariaDB service container
 
 This ensures **code quality and reliability**.
+
+---
+
+## Data Visualization
+
+Using streamlit to visualize the processed data.
+
+<img width="1169" height="512" alt="image" src="https://github.com/user-attachments/assets/dc1f4bd3-a023-4773-827f-73407cb498aa" />
+
+<img width="1172" height="430" alt="image" src="https://github.com/user-attachments/assets/17d5010e-10cf-4ada-b25a-ab99933938cd" />
 
 ---
 
