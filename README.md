@@ -185,7 +185,7 @@ This project is fully containerized using Docker to ensure consistency across di
 Docker Compose is used to orchestrate multiple services (Application + Database).
 
 ```
-docker-compose up --build
+docker compose up --build
 ```
 
 ---
