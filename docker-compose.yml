@@ -5,8 +5,8 @@ services:
     image: mariadb:11
     container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-NikiKalai@2003}
-      MYSQL_DATABASE: ${DB_NAME:-greencart}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${DB_NAME:-greencart_db}
     ports:
       - "3307:3306"
     networks:
@@ -22,8 +22,8 @@ services:
     environment:
       DB_HOST: ${DB_HOST:-mariadb}
       DB_USER: ${DB_USER:-root}
-      DB_PASSWORD: ${DB_PASSWORD:-NikiKalai@2003}
-      DB_NAME: ${DB_NAME:-greencart}
+      DB_PASSWORD: ${DB_PASSWORD:-rootpass}
+      DB_NAME: ${DB_NAME:-greencart_db}
     networks:
       - greencart_net
     command: python3 src/pipeline.py
