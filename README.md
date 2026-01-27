@@ -16,7 +16,7 @@ As the first **Data Engineer**, this project implements a **fully automated ETL 
 ---
 
 ## 🧱 Architecture Overview
-
+```
 Raw CSV Files
 ↓
 Extract (Python)
@@ -28,7 +28,7 @@ Star Schema (Dimensions & Facts)
 Load (CSV + MariaDB)
 ↓
 Power BI / Analytics
-
+```
 
 ---
 
