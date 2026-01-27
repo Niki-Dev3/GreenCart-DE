@@ -166,15 +166,20 @@ Using streamlit to visualize the processed data.
 
 ## 🐳 Docker Support
 
-The pipeline is containerized using Docker.
+This project is fully containerized using Docker to ensure consistency across different environments.
 
-### Build Image
-```bash
-docker build -t greencart_etl .
+### Prerequisites
+- Docker installed
+- Docker Compose installed
+
+---
+
+### 🚀 Run the Project using Docker Compose (Recommended)
+
+Docker Compose is used to orchestrate multiple services (Application + Database).
+
 ```
-### Run Container
-```
-docker run greencart_etl .
+docker-compose up --build
 ```
 
 ---
