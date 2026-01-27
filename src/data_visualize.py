@@ -31,12 +31,22 @@ st.dataframe(fact_orders.head(20))
 
 st.divider()
 
-# Simple visualization
+# Load dimension
+dim_customer = pd.read_csv(DATA_PATH / "dim_customers.csv")
+
+# Join fact + dimension
+orders_with_customer = fact_orders.merge(
+    dim_customer,
+    on="customer_id",
+    how="left"
+)
+
 st.subheader("📊 Revenue by State")
 revenue_by_state = (
-    fact_orders
-    .groupby("customer_id")
-    .sum(numeric_only=True)["total_order_value"]
+    orders_with_customer
+    .groupby("customer_state")["total_order_value"]
+    .sum()
 )
 
 st.bar_chart(revenue_by_state)
+
