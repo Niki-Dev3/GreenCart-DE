@@ -93,6 +93,10 @@ Source: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
   - `total_product_value`
   - `total_freight_value`
   - `total_order_value`
+- Derieved Metrics:
+  - `Late delivery`
+  - `Bad Review`
+  - `Payment mismatch`
 - Data modeled into **Star Schema**
 
 ### 3️⃣ Load
