@@ -222,7 +222,9 @@ export DATA_PATH=../data/raw
 ### 3️⃣ Run Pipeline
 ```
 python src/pipeline.py
+```
 -or-
+```
 python3 src/pipeline.py
 ```
 ---
