@@ -116,6 +116,7 @@ Source: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 <img width="678" height="425" alt="image" src="https://github.com/user-attachments/assets/54a02984-d9b1-4431-b137-67f4441d7d8e" />
 
+
 This schema is optimized for analytical queries and BI reporting.
 
 ---
@@ -158,6 +159,7 @@ Using streamlit to visualize the processed data.
 
 <img width="1169" height="512" alt="image" src="https://github.com/user-attachments/assets/dc1f4bd3-a023-4773-827f-73407cb498aa" />
 
+
 <img width="1172" height="430" alt="image" src="https://github.com/user-attachments/assets/17d5010e-10cf-4ada-b25a-ab99933938cd" />
 
 ---
@@ -193,14 +195,18 @@ Terraform files are theoretical and demonstrate cloud readiness.
 ## How to Run Locally
 
 ### 1️⃣ Install Dependencies
+```
 pip install -r requirements.txt
+```
 
 ### 2️⃣ Set Environment Variables
+```
 export DB_HOST=localhost
 export DB_USER=root
 export DB_PASSWORD=rootpass
 export DB_NAME=greencart_db
 export DATA_PATH=../data/raw
+```
 
 ### 3️⃣ Run Pipeline
 ```
