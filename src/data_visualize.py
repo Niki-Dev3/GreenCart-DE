@@ -49,4 +49,3 @@ revenue_by_state = (
 )
 
 st.bar_chart(revenue_by_state)
-
