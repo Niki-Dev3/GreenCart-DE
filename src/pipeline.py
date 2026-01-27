@@ -6,6 +6,7 @@ from load_data import load_to_csv, load_to_database
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
+
 def run_pipeline(raw_path: str, output_path: str) -> None:
     """
     Orchestrates the complete GreenCart ETL pipeline:

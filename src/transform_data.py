@@ -6,6 +6,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
+
 def auto_convert_dates(df: pd.DataFrame, threshold: float = 0.7) -> pd.DataFrame:
     """
     Automatically detect and convert date or timestamp-like columns
