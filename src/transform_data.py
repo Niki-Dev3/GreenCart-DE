@@ -2,7 +2,9 @@ import os
 import pandas as pd
 from extract_data import extract_data
 from data_quality import validate_fact_orders
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 def auto_convert_dates(df: pd.DataFrame, threshold: float = 0.7) -> pd.DataFrame:
     """
@@ -210,5 +212,7 @@ def transform_data(raw_path: str = None) -> dict:
 
 if __name__ == "__main__":
     # Use environment variable if available (works in GitHub Actions)
-    data_path = os.getenv("DATA_PATH", "../data/raw")
+    data_path = Path(
+        os.getenv("DATA_PATH", BASE_DIR / "data" / "raw")
+    )
     transformed = transform_data(data_path)

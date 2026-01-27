@@ -1,8 +1,10 @@
 import os
+from pathlib import Path
 from create_tables import create_tables
 from transform_data import transform_data
 from load_data import load_to_csv, load_to_database
 
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 def run_pipeline(raw_path: str, output_path: str) -> None:
     """
@@ -33,7 +35,16 @@ def run_pipeline(raw_path: str, output_path: str) -> None:
 
 
 if __name__ == "__main__":
+    raw_path = Path(
+        os.getenv(
+            "DATA_PATH",
+            str(BASE_DIR / "data" / "raw")
+        )
+    )
+
+    output_path = BASE_DIR / "data" / "processed"
+
     run_pipeline(
-        raw_path=os.getenv("DATA_PATH", "../data/raw"),
-        output_path="../data/processed"
+        raw_path=raw_path,
+        output_path=output_path
     )

@@ -2,6 +2,8 @@ import os
 import pandas as pd
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parents[1]
+
 
 def extract_data(raw_path: str) -> dict:
     """
@@ -21,4 +23,8 @@ def extract_data(raw_path: str) -> dict:
 
 
 if __name__ == "__main__":
-    data = extract_data(raw_path=os.getenv("DATA_PATH", "../data/raw"))
+    raw_path = Path(
+        os.getenv("DATA_PATH", BASE_DIR / "data" / "raw")
+    )
+
+    data = extract_data(raw_path=raw_path)
