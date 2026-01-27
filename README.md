@@ -170,11 +170,11 @@ The pipeline is containerized using Docker.
 
 ### Build Image
 ```bash
-docker build -t greencart_DE .
+docker build -t greencart_etl .
 ```
 ### Run Container
 ```
-docker run greencart_DE .
+docker run greencart_etl .
 ```
 
 ---
