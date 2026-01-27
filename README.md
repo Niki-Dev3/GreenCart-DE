@@ -116,7 +116,7 @@ Source: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 ### Relationships
 
-<img width="678" height="425" alt="image" src="https://github.com/user-attachments/assets/54a02984-d9b1-4431-b137-67f4441d7d8e" />
+<img width="686" height="416" alt="image" src="https://github.com/user-attachments/assets/7c9c06d5-dc4d-41ed-a3d9-98162b07c365" />
 
 
 This schema is optimized for analytical queries and BI reporting.
