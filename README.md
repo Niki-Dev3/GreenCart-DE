@@ -12,6 +12,7 @@ As the first **Data Engineer**, this project implements a **fully automated ETL 
 - Loads data into a relational database
 - Enforces **data quality checks**
 - Runs automatically via **CI/CD**
+- Data Visualization **Streamlit**
 
 ---
 
@@ -62,6 +63,7 @@ greencart_DE/
 │ └── etl.yml
 │
 ├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
 └── README.md
 ```
