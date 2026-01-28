@@ -205,6 +205,11 @@ Terraform files are theoretical and demonstrate cloud readiness.
 ---
 ## How to Run Locally
 
+### Prerequisites
+
+- Python 3.12.x
+- MariaDB
+
 ### 1️⃣ Install Dependencies
 ```
 pip install -r requirements.txt
