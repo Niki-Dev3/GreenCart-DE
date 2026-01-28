@@ -216,12 +216,22 @@ pip install -r requirements.txt
 ```
 
 ### 2️⃣ Set Environment Variables
+
+#### Linux
 ```
 export DB_HOST=localhost
 export DB_USER=root
 export DB_PASSWORD=rootpass
 export DB_NAME=greencart_db
 export DATA_PATH=../data/raw
+```
+#### Windows
+```
+set DB_HOST=localhost
+set DB_USER=root
+set DB_PASSWORD=rootpass
+set DB_NAME=greencart_db
+set DATA_PATH=..\data\raw
 ```
 
 ### 3️⃣ Run Pipeline
